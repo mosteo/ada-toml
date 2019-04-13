@@ -234,6 +234,11 @@ package TOML with Preelaborate is
       with Pre => Value.Kind = TOML_Table and then Value.Has (Key);
    --  Likewise, but take an unbounded string
 
+   function Merge (L, R : TOML_Value) return TOML_Value
+      with Pre  => L.Kind = TOML_Table and then R.Kind = TOML_Table,
+           Post => Merge'Result.Kind = TOML_Table;
+   --  Merge two tables, as long as there are no conflicting keys
+
    ---------------------
    -- Array modifiers --
    ---------------------
